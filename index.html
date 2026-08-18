@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PluxSports — Every Ball. Every Moment.</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #08090b;
+      color: #fff;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+    }
+
+    /* HEADER */
+    header {
+      background: #0d0f12;
+      border-bottom: 1px solid #24272c;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: #ef233c;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      color: #b8bcc3;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .live-btn {
+      background: #ef233c;
+      padding: 11px 17px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 45px 0 25px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 68px);
+      line-height: .95;
+      max-width: 780px;
+      letter-spacing: -3px;
+    }
+
+    .hero h1 span {
+      color: #ef233c;
+    }
+
+    .hero p {
+      margin-top: 18px;
+      color: #8f959e;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    /* LIVE */
+    .section {
+      padding: 25px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .section-link {
+      color: #ef233c;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .live-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .match-card {
+      background: #111317;
+      border: 1px solid #25282e;
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .match-top {
+      display: flex;
+      justify-content: space-between;
+      color: #8f959e;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    .status {
+      color: #ff4055;
+      font-weight: 800;
+    }
+
+    .teams {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .team {
+      text-align: center;
+      flex: 1;
+    }
+
+    .team-icon {
+      width: 48px;
+      height: 48px;
+      margin: auto auto 8px;
+      border-radius: 50%;
+      background: #202329;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    .score {
+      margin-top: 8px;
+      font-size: 21px;
+      font-weight: 900;
+    }
+
+    .overs {
+      color: #777e88;
+      font-size: 12px;
+    }
+
+    .vs {
+      color: #646a73;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    /* STORIES */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .story {
+      min-height: 290px;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, #222, #111);
+      border: 1px solid #25282e;
+    }
+
+    .story:first-child {
+      min-height: 430px;
+    }
+
+    .story-content {
+      position: absolute;
+      inset: auto 0 0;
+      padding: 25px;
+      background: linear-gradient(transparent, rgba(0,0,0,.95));
+      padding-top: 100px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #ef233c;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .story h3 {
+      font-size: 22px;
+      line-height: 1.15;
+    }
+
+    .story:not(:first-child) h3 {
+      font-size: 17px;
+    }
+
+    .meta {
+      color: #9a9fa7;
+      font-size: 11px;
+      margin-top: 9px;
+    }
+
+    /* CONTENT */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.5fr .8fr;
+      gap: 22px;
+    }
+
+    .news-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .news-card {
+      background: #111317;
+      border: 1px solid #25282e;
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .news-card h3 {
+      font-size: 16px;
+      margin-bottom: 7px;
+    }
+
+    .news-card p {
+      color: #858b94;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .news-time {
+      color: #666c75;
+      white-space: nowrap;
+      font-size: 11px;
+    }
+
+    /* TABLE */
+    .table-card {
+      background: #111317;
+      border: 1px solid #25282e;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .table-row {
+      display: grid;
+      grid-template-columns: 35px 1fr 40px;
+      padding: 14px 16px;
+      border-bottom: 1px solid #22252a;
+      font-size: 13px;
+    }
+
+    .table-row:first-child {
+      color: #777e88;
+      font-size: 11px;
+    }
+
+    .team-name {
+      font-weight: 700;
+    }
+
+    /* TRENDING */
+    .trending {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .trend {
+      background: #15181d;
+      border: 1px solid #292d34;
+      border-radius: 30px;
+      padding: 10px 15px;
+      color: #b8bdc5;
+      font-size: 12px;
+    }
+
+    .trend span {
+      color: #ef233c;
+      font-weight: 800;
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 50px;
+      border-top: 1px solid #24272c;
+      background: #0d0f12;
+      padding: 45px 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 30px;
+    }
+
+    footer h4 {
+      margin-bottom: 15px;
+    }
+
+    footer p,
+    footer a {
+      color: #777e88;
+      font-size: 13px;
+      line-height: 2;
+      display: block;
+    }
+
+    .copyright {
+      border-top: 1px solid #24272c;
+      margin-top: 35px;
+      padding-top: 20px;
+      color: #5f646c;
+      font-size: 12px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 850px) {
+      .nav-links {
+        display: none;
+      }
+
+      .live-grid,
+      .story-grid,
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .story:first-child {
+        min-height: 330px;
+      }
+
+      .story {
+        min-height: 260px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .hero {
+        padding-top: 30px;
+      }
+
+      .hero h1 {
+        letter-spacing: -1.5px;
+      }
+
+      .live-grid {
+        overflow-x: auto;
+        grid-template-columns: repeat(3, 85%);
+      }
+
+      .news-card {
+        flex-direction: column;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo">PLUX<span>SPORTS</span></div>
+
+    <nav class="nav-links">
+      <a href="#">Home</a>
+      <a href="#live">Live Scores</a>
+      <a href="#news">News</a>
+      <a href="#ipl">IPL</a>
+      <a href="#stories">Stories</a>
+      <a href="#stats">Stats</a>
+    </nav>
+
+    <a href="#live" class="live-btn">● LIVE</a>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="container">
+      <h1>EVERY BALL.<br><span>EVERY MOMENT.</span></h1>
+      <p>
+        Your home for cricket. Live matches, breaking news,
+        scores, analysis and everything happening around the game.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="live">
+    <div class="container">
+
+      <div class="section-head">
+        <h2 class="section-title">🔴 Live Matches</h2>
+        <a href="#" class="section-link">VIEW ALL →</a>
+      </div>
+
+      <div class="live-grid">
+
+        <div class="match-card">
+          <div class="match-top">
+            <span>IPL · FINAL</span>
+            <span class="status">● LIVE</span>
+          </div>
+
+          <div class="teams">
+            <div class="team">
+              <div class="team-icon">RCB</div>
+              <b>RCB</b>
+              <div class="score">187/5</div>
+              <div class="overs">18.4 overs</div>
+            </div>
+
+            <div class="vs">VS</div>
+
+            <div class="team">
+              <div class="team-icon">CSK</div>
+              <b>CSK</b>
+              <div class="score">161/7</div>
+              <div class="overs">18 overs</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-card">
+          <div class="match-top">
+            <span>T20I · 2ND T20I</span>
+            <span class="status">● LIVE</span>
+          </div>
+
+          <div class="teams">
+            <div class="team">
+              <div class="team-icon">IND</div>
+              <b>IND</b>
+              <div class="score">142/3</div>
+              <div class="overs">15.2 overs</div>
+            </div>
+
+            <div class="vs">VS</div>
+
+            <div class="team">
+              <div class="team-icon">NZ</div>
+              <b>NZ</b>
+              <div class="score">—</div>
+              <div class="overs">Yet to bat</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-card">
+          <div class="match-top">
+            <span>TEST · DAY 3</span>
+            <span class="status">● LIVE</span>
+          </div>
+
+          <div class="teams">
+            <div class="team">
+              <div class="team-icon">AUS</div>
+              <b>AUS</b>
+              <div class="score">421</div>
+              <div class="overs">1st Innings</div>
+            </div>
+
+            <div class="vs">VS</div>
+
+            <div class="team">
+              <div class="team-icon">ENG</div>
+              <b>ENG</b>
+              <div class="score">238/6</div>
+              <div class="overs">82 overs</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="stories">
+    <div class="container">
+
+      <div class="section-head">
+        <h2 class="section-title">🔥 Top Stories</h2>
+        <a href="#" class="section-link">MORE STORIES →</a>
+      </div>
+
+      <div class="story-grid">
+
+        <article class="story">
+          <div class="story-content">
+            <span class="tag">BREAKING</span>
+            <h3>RCB Beat CSK by 27 Runs in a Thriller!</h3>
+            <div class="meta">2 hours ago · IPL</div>
+          </div>
+        </article>
+
+        <article class="story">
+          <div class="story-content">
+            <span class="tag">VIDEO</span>
+            <h3>Jaiswal Smashes a Brilliant Century</h3>
+            <div class="meta">5 hours ago</div>
+          </div>
+        </article>
+
+        <article class="story">
+          <div class="story-content">
+            <span class="tag">ANALYSIS</span>
+            <h3>IPL Playoffs: Who Can Still Qualify?</h3>
+            <div class="meta">3 hours ago</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="news">
+    <div class="container content-grid">
+
+      <div>
+        <div class="section-head">
+          <h2 class="section-title">📰 Latest Cricket News</h2>
+          <a href="#" class="section-link">VIEW ALL →</a>
+        </div>
+
+        <div class="news-list">
+
+          <article class="news-card">
+            <div>
+              <h3>Team India Announced for Upcoming T20 Series</h3>
+              <p>Latest squad updates and major selections revealed.</p>
+            </div>
+            <span class="news-time">1h ago</span>
+          </article>
+
+          <article class="news-card">
+            <div>
+              <h3>Virat Kohli Reaches Another Major IPL Milestone</h3>
+              <p>The star batter adds another record to his career.</p>
+            </div>
+            <span class="news-time">2h ago</span>
+          </article>
+
+          <article class="news-card">
+            <div>
+              <h3>IPL Auction: Teams Begin Planning Their Squads</h3>
+              <p>Big names expected to attract attention at the auction.</p>
+            </div>
+            <span class="news-time">3h ago</span>
+          </article>
+
+          <article class="news-card">
+            <div>
+              <h3>Australia Announce Squad for Test Series</h3>
+              <p>Several changes made ahead of the important series.</p>
+            </div>
+            <span class="news-time">4h ago</span>
+          </article>
+
+        </div>
+      </div>
+
+      <div id="ipl">
+        <div class="section-head">
+          <h2 class="section-title">🏆 IPL Points Table</h2>
+        </div>
+
+        <div class="table-card">
+
+          <div class="table-row">
+            <span>#</span>
+            <span>TEAM</span>
+            <span>PTS</span>
+          </div>
+
+          <div class="table-row">
+            <span>1</span>
+            <span class="team-name">RCB</span>
+            <span>18</span>
+          </div>
+
+          <div class="table-row">
+            <span>2</span>
+            <span class="team-name">MI</span>
+            <span>16</span>
+          </div>
+
+          <div class="table-row">
+            <span>3</span>
+            <span class="team-name">GT</span>
+            <span>16</span>
+          </div>
+
+          <div class="table-row">
+            <span>4</span>
+            <span class="team-name">PBKS</span>
+            <span>14</span>
+          </div>
+
+          <div class="table-row">
+            <span>5</span>
+            <span class="team-name">CSK</span>
+            <span>12</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="stats">
+    <div class="container">
+
+      <div class="section-head">
+        <h2 class="section-title">🔥 Trending Now</h2>
+      </div>
+
+      <div class="trending">
+        <div class="trend"><span>#1</span> IPL 2026</div>
+        <div class="trend"><span>#2</span> Virat Kohli</div>
+        <div class="trend"><span>#3</span> India vs Australia</div>
+        <div class="trend"><span>#4</span> IPL Auction</div>
+        <div class="trend"><span>#5</span> T20 World Cup</div>
+        <div class="trend"><span>#6</span> Rohit Sharma</div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div>
+        <div class="logo">PLUX<span>SPORTS</span></div>
+        <p style="margin-top:12px;">
+          Every ball. Every moment.<br>
+          Your home for everything cricket.
+        </p>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        <a href="#">Home</a>
+        <a href="#">Live Scores</a>
+        <a href="#">News</a>
+        <a href="#">IPL</a>
+      </div>
+
+      <div>
+        <h4>Cricket</h4>
+        <a href="#">Teams</a>
+        <a href="#">Players</a>
+        <a href="#">Stats</a>
+        <a href="#">Schedule</a>
+      </div>
+
+      <div>
+        <h4>Connect</h4>
+        <a href="#">Instagram</a>
+        <a href="#">YouTube</a>
+        <a href="#">Facebook</a>
+        <a href="#">Contact</a>
+      </div>
+
+    </div>
+
+    <div class="copyright">
+      © 2026 PluxSports. All rights reserved.
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>
