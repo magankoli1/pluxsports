@@ -8,8 +8,10 @@ export default async function handler(req, res) {
       });
     }
 
+    const today = new Date().toISOString().split("T")[0];
+
     const response = await fetch(
-      `https://cricket.sportmonks.com/api/v2.0/fixtures?api_token=${token}&include=localteam,visitorteam,venue`
+      `https://cricket.sportmonks.com/api/v2.0/fixtures?api_token=${token}&include=localteam,visitorteam,venue&filter[starting_at]=${today}`
     );
 
     const data = await response.json();
@@ -18,7 +20,7 @@ export default async function handler(req, res) {
 
   } catch (error) {
     return res.status(500).json({
-      error: "Failed to fetch fixtures"
+      error: "Failed to fetch current fixtures"
     });
   }
 }
