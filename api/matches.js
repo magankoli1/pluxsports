@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     }
 
     const response = await fetch(
-      `https://cricket.sportmonks.com/api/v2.0/livescores?api_token=${token}`
+      `https://cricket.sportmonks.com/api/v2.0/fixtures?api_token=${token}&include=localteam,visitorteam,venue`
     );
 
     const data = await response.json();
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
   } catch (error) {
     return res.status(500).json({
-      error: "Failed to fetch Sportmonks data"
+      error: "Failed to fetch fixtures"
     });
   }
 }
