@@ -1,1 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>PluxSports | Cricket News</title>
+<meta name="description" content="Latest cricket news, breaking updates, IPL, India, T20, Test and women's cricket news.">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#070707;
+  --card:#111;
+  --card2:#161616;
+  --red:#e50914;
+  --white:#fff;
+  --muted:#999;
+  --border:#252525;
+}
+
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+a{text-decoration:none;color:inherit}
+
+.topbar{
+  background:#000;
+  border-bottom:1px solid #1d1d1d;
+  color:#888;
+  font-size:12px;
+  padding:8px 20px;
+}
+
+.topbar-inner{
+  max-width:1250px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+}
+
+.dot{
+  display:inline-block;
+  width:7px;
+  height:7px;
+  background:var(--red);
+  border-radius:50%;
+  margin-right:6px;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(5,5,5,.96);
+  border-bottom:1px solid #222;
+  backdrop-filter:blur(10px);
+}
+
+.nav{
+  max-width:1250px;
+  margin:auto;
+  padding:15px 20px;
+  display:flex;
+  align-items:center;
+  gap:35px;
+}
+
+.logo{
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:-1.5px;
+}
+
+.logo span{color:var(--red)}
+
+.nav-links{
+  display:flex;
+  gap:25px;
+  flex:1;
+}
+
+.nav-links a{
+  color:#ccc;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.nav-links a:hover,
+.nav-links .active{
+  color:var(--red);
+}
+
+.search{
+  width:210px;
+  padding:9px 12px;
+  background:#111;
+  border:1px solid #292929;
+  border-radius:7px;
+  color:white;
+  outline:none;
+}
+
+.menu{
+  display:none;
+  font-size:24px;
+  cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+  max-width:1250px;
+  margin:auto;
+  padding:40px 20px 25px;
+}
+
+.hero-box{
+  min-height:300px;
+  padding:40px;
+  border:1px solid #292929;
+  border-radius:12px;
+  display:flex;
+  align-items:flex-end;
+
+  background:
+    radial-gradient(circle at 85% 20%,#68090e,#180507 35%,#080808 75%);
+}
+
+.badge{
+  display:inline-block;
+  background:var(--red);
+  padding:6px 10px;
+  border-radius:4px;
+  font-size:10px;
+  font-weight:900;
+  margin-bottom:15px;
+}
+
+.hero h1{
+  font-size:52px;
+  line-height:1;
+  letter-spacing:-2.5px;
+  margin-bottom:15px;
+}
+
+.hero h1 span{
+  color:var(--red);
+}
+
+.hero p{
+  color:#bbb;
+  max-width:650px;
+  font-size:15px;
+}
+
+/* MAIN */
+
+.container{
+  max-width:1250px;
+  margin:auto;
+  padding:10px 20px 60px;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  border-bottom:1px solid #222;
+  padding-bottom:12px;
+  margin-bottom:18px;
+}
+
+.section-head h2{
+  font-size:23px;
+}
+
+.section-head h2:before{
+  content:"";
+  display:inline-block;
+  width:4px;
+  height:22px;
+  background:var(--red);
+  margin-right:9px;
+  vertical-align:-3px;
+}
+
+/* FILTER */
+
+.filters{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.filter{
+  background:#111;
+  border:1px solid #292929;
+  color:#aaa;
+  padding:8px 14px;
+  border-radius:20px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.filter:hover,
+.filter.active{
+  background:#1d0809;
+  color:white;
+  border-color:var(--red);
+}
+
+/* NEWS */
+
+.news-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.news-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  transition:.2s;
+}
+
+.news-card:hover{
+  transform:translateY(-4px);
+  border-color:#444;
+}
+
+.news-image{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  display:block;
+  background:#181818;
+}
+
+.news-body{
+  padding:17px;
+}
+
+.news-label{
+  color:var(--red);
+  font-size:10px;
+  font-weight:bold;
+}
+
+.news-title{
+  font-size:17px;
+  line-height:1.35;
+  margin:8px 0;
+}
+
+.news-description{
+  color:#888;
+  font-size:12px;
+  line-height:1.5;
+}
+
+.news-meta{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  border-top:1px solid #222;
+  margin-top:14px;
+  padding-top:12px;
+  color:#777;
+  font-size:10px;
+}
+
+.read{
+  display:inline-block;
+  margin-top:13px;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.read:hover{
+  color:var(--red);
+}
+
+.loading,
+.error,
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:45px;
+  background:#111;
+  border:1px solid #252525;
+  border-radius:10px;
+  color:#888;
+}
+
+/* FOOTER */
+
+footer{
+  background:#050505;
+  border-top:1px solid #222;
+}
+
+.footer-inner{
+  max-width:1250px;
+  margin:auto;
+  padding:35px 20px;
+}
+
+.footer-logo{
+  font-size:23px;
+  font-weight:900;
+}
+
+.footer-logo span{
+  color:var(--red);
+}
+
+.footer-text{
+  color:#777;
+  font-size:11px;
+  margin-top:8px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .news-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .hero h1{
+    font-size:42px;
+  }
+}
+
+@media(max-width:650px){
+
+  .topbar-inner span:last-child{
+    display:none;
+  }
+
+  .nav{
+    padding:13px 15px;
+    justify-content:space-between;
+  }
+
+  .logo{
+    font-size:23px;
+  }
+
+  .menu{
+    display:block;
+  }
+
+  .nav-links{
+    display:none;
+    position:absolute;
+    left:0;
+    right:0;
+    top:55px;
+    background:#080808;
+    padding:15px;
+    flex-direction:column;
+    border-bottom:1px solid #222;
+  }
+
+  .nav-links.show{
+    display:flex;
+  }
+
+  .search{
+    display:none;
+  }
+
+  .hero{
+    padding:25px 12px 15px;
+  }
+
+  .hero-box{
+    min-height:290px;
+    padding:25px;
+  }
+
+  .hero h1{
+    font-size:34px;
+  }
+
+  .container{
+    padding:10px 12px 45px;
+  }
+
+  .news-grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+
+<div class="topbar">
+
+  <div class="topbar-inner">
+
+    <span>
+      <i class="dot"></i>
+      PLUXSPORTS NEWS
+    </span>
+
+    <span>
+      Cricket • News • Updates
+    </span>
+
+  </div>
+
+</div>
+
+
+<!-- NAVBAR -->
+
+<header>
+
+<nav class="nav">
+
+  <a href="#" class="logo">
+    PLUX<span>SPORTS</span>
+  </a>
+
+  <div class="nav-links" id="navLinks">
+
+    <a href="#" class="active">
+      Home
+    </a>
+
+    <a href="#news">
+      News
+    </a>
+
+    <a href="#" onclick="comingSoon(event)">
+      Scores
+    </a>
+
+    <a href="#" onclick="comingSoon(event)">
+      Matches
+    </a>
+
+    <a href="#" onclick="comingSoon(event)">
+      Teams
+    </a>
+
+  </div>
+
+  <input
+    id="search"
+    class="search"
+    type="search"
+    placeholder="Search cricket news..."
+  >
+
+  <div
+    class="menu"
+    onclick="toggleMenu()"
+  >
+    ☰
+  </div>
+
+</nav>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="hero-box">
+
+    <div>
+
+      <span class="badge">
+        LATEST CRICKET NEWS
+      </span>
+
+      <h1>
+        EVERY BALL.<br>
+        <span>EVERY STORY.</span>
+      </h1>
+
+      <p>
+        Get the latest cricket news, breaking updates,
+        match stories and important cricket developments.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- NEWS -->
+
+<main class="container">
+
+<section id="news">
+
+  <div class="section-head">
+
+    <h2>
+      Latest Cricket News
+    </h2>
+
+    <span
+      id="status"
+      style="font-size:11px;color:#777"
+    >
+      LOADING
+    </span>
+
+  </div>
+
+
+  <!-- CATEGORY FILTERS -->
+
+  <div class="filters">
+
+    <button
+      class="filter active"
+      data-query="cricket"
+    >
+      All
+    </button>
+
+    <button
+      class="filter"
+      data-query="India cricket"
+    >
+      India
+    </button>
+
+    <button
+      class="filter"
+      data-query="IPL cricket"
+    >
+      IPL
+    </button>
+
+    <button
+      class="filter"
+      data-query="T20 cricket"
+    >
+      T20
+    </button>
+
+    <button
+      class="filter"
+      data-query="Test cricket"
+    >
+      Test
+    </button>
+
+    <button
+      class="filter"
+      data-query="women cricket"
+    >
+      Women
+    </button>
+
+  </div>
+
+
+  <!-- NEWS CARDS -->
+
+  <div
+    id="newsContainer"
+    class="news-grid"
+  >
+
+    <div class="loading">
+      Loading latest cricket news...
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="footer-inner">
+
+    <div class="footer-logo">
+      PLUX<span>SPORTS</span>
+    </div>
+
+    <div class="footer-text">
+      Cricket news, stories and updates.
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+const newsContainer =
+  document.getElementById("newsContainer");
+
+const statusText =
+  document.getElementById("status");
+
+const searchInput =
+  document.getElementById("search");
+
+let allNews = [];
+
+
+/* MOBILE MENU */
+
+function toggleMenu(){
+
+  document
+    .getElementById("navLinks")
+    .classList.toggle("show");
+
+}
+
+
+/* COMING SOON */
+
+function comingSoon(event){
+
+  event.preventDefault();
+
+  alert(
+    "This section is currently in progress.\n\nComing soon on PluxSports."
+  );
+
+}
+
+
+/* SECURITY */
+
+function escapeHTML(value){
+
+  if(!value) return "";
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* LOAD NEWS */
+
+async function loadNews(query="cricket"){
+
+  newsContainer.innerHTML = `
+    <div class="loading">
+      Loading latest cricket news...
+    </div>
+  `;
+
+  statusText.innerText="UPDATING...";
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/news?q=" +
+        encodeURIComponent(query)
+      );
+
+    const data =
+      await response.json();
+
+    if(!response.ok){
+
+      throw new Error(
+        data.error ||
+        "News API error"
+      );
+
+    }
+
+    allNews =
+      data.results || [];
+
+    renderNews(allNews);
+
+    statusText.innerText =
+      allNews.length + " STORIES";
+
+  }catch(error){
+
+    newsContainer.innerHTML = `
+      <div class="error">
+        Unable to load news.
+        <br><br>
+        <small>
+          ${escapeHTML(error.message)}
+        </small>
+      </div>
+    `;
+
+    statusText.innerText="ERROR";
+
+  }
+
+}
+
+
+/* RENDER NEWS */
+
+function renderNews(news){
+
+  if(!news.length){
+
+    newsContainer.innerHTML = `
+      <div class="empty">
+        No cricket news found.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  newsContainer.innerHTML =
+    news.map(article=>{
+
+      const title =
+        article.title ||
+        "Latest Cricket News";
+
+      const description =
+        article.description ||
+        "Latest cricket update.";
+
+      const source =
+        article.source_name ||
+        "Cricket News";
+
+      const image =
+        article.image_url ||
+        "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=900&q=80";
+
+      const link =
+        article.link || "#";
+
+      let date="";
+
+      if(article.pubDate){
+
+        date =
+          new Date(
+            article.pubDate
+          ).toLocaleString(
+            "en-IN",
+            {
+              day:"2-digit",
+              month:"short",
+              hour:"2-digit",
+              minute:"2-digit"
+            }
+          );
+
+      }
+
+      return `
+
+        <article class="news-card">
+
+          <img
+            class="news-image"
+            src="${escapeHTML(image)}"
+            alt="${escapeHTML(title)}"
+            loading="lazy"
+          >
+
+          <div class="news-body">
+
+            <div class="news-label">
+              CRICKET NEWS
+            </div>
+
+            <h3 class="news-title">
+              ${escapeHTML(title)}
+            </h3>
+
+            <p class="news-description">
+              ${escapeHTML(
+                description.substring(0,150)
+              )}
+              ${description.length>150 ? "..." : ""}
+            </p>
+
+            <div class="news-meta">
+
+              <span>
+                ${escapeHTML(source)}
+              </span>
+
+              <span>
+                ${escapeHTML(date)}
+              </span>
+
+            </div>
+
+            <a
+              class="read"
+              href="${escapeHTML(link)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              READ FULL STORY →
+            </a>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* CATEGORY BUTTONS */
+
+document
+  .querySelectorAll(".filter")
+  .forEach(button=>{
+
+    button.addEventListener(
+      "click",
+      ()=>{
+
+        document
+          .querySelectorAll(".filter")
+          .forEach(btn =>
+            btn.classList.remove("active")
+          );
+
+        button.classList.add("active");
+
+        searchInput.value="";
+
+        loadNews(
+          button.dataset.query
+        );
+
+      }
+    );
+
+  });
+
+
+/* SEARCH */
+
+searchInput.addEventListener(
+  "input",
+  ()=>{
+
+    const text =
+      searchInput.value
+        .trim()
+        .toLowerCase();
+
+    if(!text){
+
+      renderNews(allNews);
+
+      return;
+
+    }
+
+    const filtered =
+      allNews.filter(article=>{
+
+        const content =
+          (
+            article.title || ""
+          ) +
+          " " +
+          (
+            article.description || ""
+          );
+
+        return content
+          .toLowerCase()
+          .includes(text);
+
+      });
+
+    renderNews(filtered);
+
+  }
+);
+
+
+/* INITIAL LOAD */
+
+loadNews("cricket");
+
+</script>
+
+</body>
+</html>
